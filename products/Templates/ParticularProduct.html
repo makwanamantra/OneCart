@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="bg-slate-50 min-h-screen py-12">
+
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10 bg-white rounded-2xl shadow-lg p-6">
+
+        <!-- Product Image -->
+        <div class="flex items-center justify-center">
+            <img src="{{ product.image.url }}"
+                 alt="{{ product.name }}"
+                 class="rounded-2xl w-full h-[450px] object-cover shadow-md">
+        </div>
+
+        <!-- Product Details -->
+        <div class="flex flex-col justify-center">
+
+            <p class="text-cyan-600 font-semibold uppercase text-sm">
+                {{ product.brand }}
+            </p>
+
+            <h1 class="text-4xl font-bold text-slate-800 mt-2">
+                {{ product.name }}
+            </h1>
+
+            <!-- Price Section -->
+            <div class="mt-6 flex items-center gap-4">
+
+                <span class="text-3xl font-bold text-cyan-600">
+                    ₹{{ product.discounted_price }}
+                </span>
+
+                {% if product.discount %}
+                <span class="text-slate-400 line-through text-lg">
+                    ₹{{ product.price }}
+                </span>
+
+                <span class="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                    {{ product.discount }}% OFF
+                </span>
+                {% endif %}
+
+            </div>
+
+            <!-- Stock -->
+            <div class="mt-4">
+                {% if product.in_stock %}
+                    <p class="text-green-600 font-semibold">✔ In Stock</p>
+                {% else %}
+                    <p class="text-red-500 font-semibold">✖ Out of Stock</p>
+                {% endif %}
+            </div>
+
+            <!-- Description -->
+            <p class="mt-6 text-slate-600 leading-relaxed">
+                {{ product.description }}
+            </p>
+
+            <!-- Buttons -->
+            <div class="mt-8 flex gap-4">
+
+                <a href="{% url 'add_to_cart' product.id %}"
+                   class="flex-1 text-center bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-3 rounded-xl transition">
+                    Add to Cart
+                </a>
+
+                <a href="{% url 'products' %}"
+                   class="px-6 py-3 border rounded-xl hover:bg-slate-100">
+                    Back
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock content %}

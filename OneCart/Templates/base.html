@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+</head>
+
+<body>
+    <nav class="w-full border-b-2 border-gray-900 bg-white shadow-sm bg-transparent sticky top-0 z-50">
+        <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+
+            <!-- Logo -->
+            <a href="{% url  'home' %}" class="text-2xl font-bold tracking-tight text-gray-900">
+                MyApp
+            </a>
+
+            <!-- Navigation Links -->
+            <div class="hidden items-center space-x-8 md:flex">
+                <a href="{% url  'home' %}" class="text-gray-600 transition hover:text-black font-medium">
+                    Dashboard
+                </a>
+                <a href="{% url  'products' %}" class="text-gray-600 transition hover:text-black font-medium">
+                    Products
+                </a>
+                <a href="{% url 'about' %}" class="text-gray-600 transition hover:text-black font-medium">
+                    About Us
+                </a>
+                <a href="{% url 'contact' %}" class="text-gray-600 transition hover:text-black font-medium">
+                    Contact us 
+                </a>
+            </div>
+
+            <!-- Right Side -->
+            <div class="flex items-center space-x-3">
+
+
+                {% if user.is_authenticated %}
+                   <h3>Welcome {{ user.username }}!  </h3> 
+                <button
+                    class="rounded-lg bg-gray-900 px-5 py-2 text-sm font-medium text-white transition hover:bg-black">
+                    <a href="{%url 'logout'%}">
+                        logout
+                    </a>
+                </button>
+                {%else %}
+                    <button
+                    class="rounded-lg border border-gray-900 px-5 py-2 text-sm font-medium text-gray-900 transition hover:bg-gray-100">
+                    <a href="{%url 'login'%}">
+                        Login</a>
+                    </button>
+
+                    <button
+                    class="rounded-lg bg-gray-900 px-5 py-2 text-sm font-medium text-white transition hover:bg-black">
+                    <a href="{%url 'signup'%}">
+                        Sign Up
+                    </a>
+                    </button>
+                {% endif %}
+
+            </div>
+
+        </div>
+    </nav>
+    {% block content%}
+    {% endblock content%}
+
+</body>
+
+</html>
